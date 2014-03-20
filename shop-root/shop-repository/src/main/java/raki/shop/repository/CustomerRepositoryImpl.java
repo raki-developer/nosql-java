@@ -1,15 +1,15 @@
 package raki.shop.repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import raki.shop.model.Customer;
 
 public class CustomerRepositoryImpl implements CustomerRepository {
-    
     protected EntityManager entityManager;
     
-    public CustomerRepositoryImpl(EntityManager em) {
-        entityManager = em;
+    public CustomerRepositoryImpl(EntityManagerFactory emf) {
+        entityManager = emf.createEntityManager();
     }
     
     public Customer get(String id) {
