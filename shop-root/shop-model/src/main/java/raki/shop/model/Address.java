@@ -1,4 +1,4 @@
-package my.company.kundera.mongo.one;
+package raki.shop.model;
 
 import java.io.Serializable;
 import javax.persistence.Column;

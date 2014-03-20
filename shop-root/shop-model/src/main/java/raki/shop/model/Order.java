@@ -1,4 +1,4 @@
-package my.company.simple.crud;
+package raki.shop.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,22 +13,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "orders")
 public class Order implements Serializable {
-
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected String id;
-
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     protected Date date;
-
+    
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name="order_id", nullable = false)
     protected Set<Item> items = new HashSet<Item>();
 
     /**
@@ -72,5 +69,6 @@ public class Order implements Serializable {
     public void setItems(Set<Item> items) {
         this.items = items;
     }
-
+    
+    
 }

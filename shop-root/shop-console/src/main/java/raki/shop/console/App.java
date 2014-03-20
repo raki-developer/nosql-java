@@ -1,4 +1,4 @@
-package my.company.simple.crud;
+package raki.shop.console;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -6,12 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import raki.shop.model.Address;
+import raki.shop.model.Customer;
+import raki.shop.model.Item;
+import raki.shop.model.Order;
+import raki.shop.repository.CustomerRepository;
+import raki.shop.repository.CustomerRepositoryImpl;
+
 
 public class App 
 {
     public static void main( String[] args )
     {
-        
         Customer customer = new Customer();
         customer.setFirstName("John");
         customer.setLastName("Doe");
@@ -44,14 +50,12 @@ public class App
         
         customer.getOrders().add(order);
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("postgres");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("mongo");
         EntityManager em = emf.createEntityManager();
 
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.persist(customer);
-        tx.commit();
-        
+        CustomerRepository customerRepository = new CustomerRepositoryImpl(em);
+        customerRepository.save(customer);
+       
         em.close();
         emf.close();
     }

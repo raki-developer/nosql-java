@@ -1,4 +1,4 @@
-package my.company.simple.crud;
+package my.company.kundera.mongo.one;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,36 +16,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Customer implements Serializable {
-
+    
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected String id;
-
-    @Column(name = "first_name")
+    
+    @Column(name="first_name")
     protected String firstName;
-
-    @Column(name = "last_name")
+    
+    @Column(name="last_name")
     protected String lastName;
-
+    
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name="customer_id", nullable=false)
     private Set<Order> orders = new HashSet<Order>();
-
+    
     @Embedded
     private Address address;
-
+    
     @ElementCollection
     @CollectionTable(name = "customer_phones")
     private List<String> phones = new ArrayList<String>();
-
-    public Customer() {
-    }
-
+    
+    
+    public Customer() {}
+    
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -134,5 +132,5 @@ public class Customer implements Serializable {
     public void setPhones(List<String> phones) {
         this.phones = phones;
     }
-
+    
 }
