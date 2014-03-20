@@ -2,6 +2,7 @@ package raki.shop.console;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import raki.shop.model.Customer;
 import raki.shop.repository.CustomerRepository;
 
 public class App 
@@ -10,5 +11,10 @@ public class App
     {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
         CustomerRepository customerRepository = appContext.getBean(CustomerRepository.class);
+        
+        Customer customer = new Customer();
+        customer.setFirstName("John");
+        
+        customerRepository.save(customer);
     }
 }
