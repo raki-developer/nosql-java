@@ -2,10 +2,12 @@ package my.company.simple.crud;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class App 
 {
@@ -47,10 +49,18 @@ public class App
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("postgres");
         EntityManager em = emf.createEntityManager();
 
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.persist(customer);
-        tx.commit();
+//        EntityTransaction tx = em.getTransaction();
+//        tx.begin();
+//        em.persist(customer);
+//        tx.commit();
+        
+        Query query = em.createQuery("select c.orders from Customer c where c.id = :id");
+        query.setParameter("id", "ff80808144e3df320144e3df351b0000");
+        List<Order> orders = query.getResultList();
+        
+        for(Order o : orders) {
+            System.out.println(o.getDate());
+        }
         
         em.close();
         emf.close();

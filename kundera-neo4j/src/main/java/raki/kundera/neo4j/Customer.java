@@ -1,52 +1,27 @@
-package raki.shop.model;
+package raki.kundera.neo4j;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="customer")
 public class Customer implements Serializable {
-    
     @Id
-    protected String id;
+    private String id;
     
-    @Column(name="first_name")
-    protected String firstName;
+    private String firstName;
     
-    @Column(name="last_name")
-    protected String lastName;
-    
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="customer_id", nullable=false)
-    private Set<Order> orders = new HashSet<Order>();
-    
-    @Embedded
-    private Address address;
+    private String lastName;
     
     @ElementCollection
     @CollectionTable(name = "customer_phones")
     private List<String> phones = new ArrayList<String>();
-    
-    
-    public Customer() {}
-    
-    public Customer(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
     /**
      * @return the id
@@ -91,34 +66,6 @@ public class Customer implements Serializable {
     }
 
     /**
-     * @return the orders
-     */
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    /**
-     * @param orders the orders to set
-     */
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
-
-    /**
-     * @return the address
-     */
-    public Address getAddress() {
-        return address;
-    }
-
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    /**
      * @return the phones
      */
     public List<String> getPhones() {
@@ -132,8 +79,6 @@ public class Customer implements Serializable {
         this.phones = phones;
     }
     
-    public void addPhone(String phone) {
-        phones.add(phone);
-    }
+    
     
 }

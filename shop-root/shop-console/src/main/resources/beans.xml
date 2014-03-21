@@ -12,7 +12,7 @@
     
     <bean id="entityManagerFactory"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="mongo" />
+        <property name="persistenceUnitName" value="neo4j" />
     </bean> 
     
 </beans>
